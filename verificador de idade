@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de idade</title>
+    <style>
+        body{
+        background: rgb(107, 109, 241);
+        font: normal 15pt Arial;
+        }
+
+        header{
+        color: white;
+        text-align: center;
+        }
+
+        section{
+        background-color: white;
+        border-radius: 10px;
+        padding: 15px;
+        width: 500px;
+        margin: auto;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.445);
+        }
+
+        footer{
+        color: white;
+        text-align: center;
+        font-style: italic;
+        }
+
+        #foto {
+        padding-left: 120px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Verificador de idade</h1>
+    </header>
+    <section>
+        <div>
+            <p>Ano de Nascimento:
+                <input type="number" name="txtano" id="txtano" min="0">
+            </p>
+            <p>
+                Sexo:
+                <input type="radio" name="radsex" id="masc" checked>
+                <label  for="masc">Masculino</label>
+                <input type="radio" name="radsex" id="fem">
+                <label for="fem">Feminino</label>
+            </p>
+            <p>
+                <input type="button" value="Verificar" onclick="verificar()">
+            </p>
+        </div>
+        <div>
+            
+        </div>
+        <div id="res">
+            Preencha os dados acima para ver o resultado!
+        </div>
+        <img id="foto">
+    </section>
+    <footer>
+        <p>&copy; BrenoHen</p>
+    </footer>
+    <script>
+        function verificar(){
+            var data = new Date()
+            var ano = data.getFullYear()
+            var fAno = document.getElementById('txtano')
+            var res = document.getElementById('res')
+            var img = document.getElementById('foto')
+            if (fAno.value.length == 0 || (fAno.value) > ano){
+                window.alert('[ERRO] Digite os dados novamente')
+            } else {
+                var fsex = document.getElementsByName('radsex')
+                var idade = ano - Number(fAno.value)
+                var gen = ''
+                if (fsex[0].checked){
+                gen = 'homem'
+                if (idade < 1){
+                    //recem nascido
+                    res.innerHTML = `Detectamos  menino recem nascido`
+                    img.src = 'img/recem-nascido.png'
+                } else if (idade >= 1 && idade < 10){
+                    //criança
+                    res.innerHTML = `Detectamos menino com ${idade} anos.`
+                    img.src = 'img/menino.png'
+                } else if (idade < 21){
+                    //jovem
+                    res.innerHTML =`Detectamos jovem com ${idade} anos.`
+                    img.src = 'img/homem-jovem.png'
+                } else if (idade < 50){
+                    //homem adulto
+                    res.innerHTML =`Detectamos homem com ${idade} anos.`
+                    img.src = 'img/homem.png'
+                } else {
+                    //idoso
+                    res.innerHTML =`Detectamos homem com ${idade} anos.`
+                    img.src = 'img/idoso.png'
+                }
+            } else if (fsex[1].checked){
+                gen = 'mulher'
+                if (idade < 1){
+                    //recem nascido
+                    res.innerHTML = `Detectamos menina recem nascida.`
+                    img.src = 'img/recem-nascido.png'
+                } else if (idade >= 1 && idade <= 10){
+                    //criança
+                    res.innerHTML = `Detectamos menina com ${idade} anos.`
+                    img.src = 'img/menina.png'
+                } else if (idade < 21){
+                    // mulher jovem
+                    res.innerHTML = `Detectamos moça jovem com ${idade} anos.`
+                    img.src = 'img/mulher-jovem.png'
+                } else if (idade < 50){
+                    //mulher adulta
+                    res.innerHTML = `Detectamos mulher com ${idade} anos.`
+                    img.src = 'img/mulher.png'
+                } else {
+                    //idosa
+                    res.innerHTML = `Detectamos senhorita de ${idade} anos.`
+                    img.src = 'img/idosa.png'
+                }
+            }
+            res.style.textAlign = 'center'
+        
+        }
+    }
+    </script>
+</body>
+</html>
